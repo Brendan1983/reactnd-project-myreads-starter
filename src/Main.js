@@ -3,6 +3,24 @@ import Bookshelf from './Bookshelf';
 import SearchBtn from './SearchBtn';
 
 class Main extends Component {
+
+  state = {
+    shelves: [
+      {
+        name: 'Currently Reading',
+        id: 'currentlyReading'
+      },
+      {
+        name: 'Want to read',
+        id: 'wantToRead'
+      },
+      {
+        name: 'Read',
+        id: 'read'
+      }
+    ]
+  }
+
 	render() {
 		return (
 			<div className="list-books">
@@ -12,7 +30,7 @@ class Main extends Component {
         <div className="list-books-content">
           
           <div>
-            <Bookshelf />
+            { this.state.shelves.map((shelf) => <Bookshelf key={shelf.id} shelfInfo={shelf} updateShelf={this.props.updateShelf}/>) }
           </div>
 
         </div>
