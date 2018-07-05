@@ -30,7 +30,7 @@ class Main extends Component {
         <div className="list-books-content">
           
           <div>
-            { this.state.shelves.map((shelf) => <Bookshelf key={shelf.id} shelfInfo={shelf} updateShelf={this.props.updateShelf}/>) }
+            { this.state.shelves.map((shelf) => <Bookshelf key={shelf.id} shelfInfo={shelf} />) }
           </div>
 
         </div>

@@ -20,7 +20,7 @@ class Search extends Component {
 		return (
 			<div className="search-books">
 				<SearchForm pushResults={this.pushResults} />
-				<SearchResults results={this.state.results} updateShelf={this.props.updateShelf} />
+				<SearchResults results={this.state.results} />
 			</div>
 		)
 	}

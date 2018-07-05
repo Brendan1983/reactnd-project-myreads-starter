@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI';
 
 class Book extends Component {
+
+  state = {
+    shelf: ''
+  }
+
+  componentDidMount() {
+    BooksAPI.get(this.props.bookInfo.id).then((book) => {
+        this.setState({shelf: book.shelf})
+      }
+    )
+  }
+
+  updateShelf(book, shelf) {
+    BooksAPI.update(book, shelf).then(() => {
+        this.setState({shelf: shelf});
+        if(this.props.refreshShelf) {
+          this.props.refreshShelf(shelf);
+        }
+      }
+    )
+  }
 
 	render() {
 		
     const { bookInfo } = this.props;
+    const bgImage = bookInfo.imageLinks ? bookInfo.imageLinks.smallThumbnail : "('./icons/missing-cover.png')" ;
 
     return (
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bookInfo.imageLinks.smallThumbnail})` }}></div>
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bgImage})` }}></div>
             <div className="book-shelf-changer">
-              <select onChange={(event) => this.props.updateShelf(bookInfo, event.target.value)} >
+              <select onChange={(event) => this.updateShelf(bookInfo, event.target.value)} value={this.state.shelf}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
