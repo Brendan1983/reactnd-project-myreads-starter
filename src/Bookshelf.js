@@ -19,6 +19,13 @@ class Bookshelf extends Component {
     });
   }
 
+  updateShelf(book, shelf) {
+    BooksAPI.update(book, shelf).then(() => {
+        this.refreshShelf(shelf);
+      }
+    )
+  }
+
 	render() {
 
     const { shelfInfo } = this.props;
@@ -29,7 +36,7 @@ class Bookshelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             
-          	{ this.state.books.map((book) => <Book key={book.id} bookInfo={book} refreshShelf={this.refreshShelf} /> )}
+          	{ this.state.books.map((book) => <Book key={book.id} bookInfo={book} updateShelf={() => this.updateShelf} /> )}
             
           </ol>
         </div>

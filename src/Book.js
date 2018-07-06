@@ -14,14 +14,9 @@ class Book extends Component {
     )
   }
 
-  updateShelf(book, shelf) {
-    BooksAPI.update(book, shelf).then(() => {
-        this.setState({shelf: shelf});
-        if(this.props.refreshShelf) {
-          this.props.refreshShelf(shelf);
-        }
-      }
-    )
+  handleChange(book, shelf) {
+    this.props.updateShelf(book, shelf);
+    this.setState({shelf: shelf})  
   }
 
 	render() {
@@ -35,7 +30,7 @@ class Book extends Component {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bgImage})` }}></div>
             <div className="book-shelf-changer">
-              <select onChange={(event) => this.updateShelf(bookInfo, event.target.value)} value={this.state.shelf}>
+              <select onChange={(event) => this.handleChange(bookInfo, event.target.value)} value={this.state.shelf}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
