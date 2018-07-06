@@ -10,20 +10,16 @@ class Bookshelf extends Component {
 
   componentDidMount() {
     this.refreshShelf(this.props.shelfInfo.id);
+    console.log('shelf mounted');
   }
 	
   refreshShelf(shelf) {
+    console.log('shelf refresh middle');
     BooksAPI.getAll().then((books) => {
       books = books.filter((book) => book.shelf === shelf);
       this.setState({books: [...books]})
+      console.log('shelf refreshed');
     });
-  }
-
-  updateShelf(book, shelf) {
-    BooksAPI.update(book, shelf).then(() => {
-        this.refreshShelf(shelf);
-      }
-    )
   }
 
 	render() {
@@ -36,7 +32,7 @@ class Bookshelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             
-          	{ this.state.books.map((book) => <Book key={book.id} bookInfo={book} updateShelf={() => this.updateShelf} /> )}
+          	{ this.state.books.map((book) => <Book key={book.id} bookInfo={book} refreshShelf={() => this.refreshShelf} /> )}
             
           </ol>
         </div>
