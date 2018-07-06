@@ -4,23 +4,16 @@ import * as BooksAPI from './BooksAPI';
 class Book extends Component {
 
   state = {
-    shelf: ''
-  }
-
-  componentDidMount() {
-    BooksAPI.get(this.props.bookInfo.id).then((book) => {
-        this.setState({shelf: book.shelf})
-      }
-    )
-    console.log('book mounted');
+    shelf: this.props.bookInfo.shelf
   }
 
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf).then(() => {
-        this.setState({shelf: shelf});
-        console.log('book updated');
+      if(this.props.populateShelves){
+        this.props.populateShelves();
       }
-    )
+      this.setState({shelf: shelf});
+    });
   }
 
 	render() {
