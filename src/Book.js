@@ -4,7 +4,14 @@ import * as BooksAPI from './BooksAPI';
 class Book extends Component {
 
   state = {
-    shelf: this.props.bookInfo.shelf
+    shelf: ''
+  }
+
+  componentDidMount() {
+    BooksAPI.get(this.props.bookInfo.id).then((book) => {
+        this.setState({shelf: book.shelf})
+      }
+    )
   }
 
   updateBook(book, shelf) {
@@ -12,7 +19,7 @@ class Book extends Component {
       if(this.props.populateShelves){
         this.props.populateShelves();
       }
-      this.setState({shelf: shelf});
+      this.setState({shelf});
     });
   }
 

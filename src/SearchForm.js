@@ -9,7 +9,6 @@ class SearchForm extends Component {
 	}
 
 	handleChange = (event) => {
-		console.log("type");
 		this.setState({ value:event.target.value })
 		if( this.state.value.length > 0 ){
 			BooksAPI.search(this.state.value)

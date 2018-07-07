@@ -29,9 +29,7 @@ class Main extends Component {
 
   populateShelves() {
     BooksAPI.getAll().then((books) => {
-      this.state.shelves.map((shelf) => {
-        this.setState(oldState => ({ books: [...oldState.books, ...books.filter((book) => book.shelf === shelf.id)] }));
-      });
+      this.setState({ books: [...books.filter((book) => book.shelf === 'currentlyReading' || 'wantToRead' || 'read')] });
     });
   }
 
@@ -44,7 +42,7 @@ class Main extends Component {
         <div className="list-books-content">
           
           <div>
-            { this.state.shelves.map((shelf) => <Bookshelf key={shelf.id} shelfInfo={shelf} books={this.state.books.filter((book) => book.shelf === shelf.id )} populateShelves={() => this.populateShelves} />) }
+            { this.state.shelves.map((shelf) => <Bookshelf key={shelf.id} shelfInfo={shelf} books={this.state.books.filter((book) => book.shelf === shelf.id )} populateShelves={() => this.populateShelves()} />) }
           </div>
 
         </div>
