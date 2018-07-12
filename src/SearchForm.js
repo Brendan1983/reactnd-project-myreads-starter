@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 
 class SearchForm extends Component {
-	
+
 	state = {
 		value: ''
 	}
@@ -20,16 +20,15 @@ class SearchForm extends Component {
 
 	render() {
 		return(
-			
 			<div className="search-books-bar">
-			  <Link to='/' className="close-search">Close</Link>
-			  <div className="search-books-input-wrapper">
-			    <input type="text" value={this.state.value} placeholder="Search by title or author" onChange={this.handleChange}/>
-			  </div>
+				<Link to='/' className="close-search">Close</Link>
+				<div className="search-books-input-wrapper">
+					<input type="text" value={this.state.value} placeholder="Search by title or author" onChange={this.handleChange}/>
+				</div>
 			</div>
-			
 		);
 	}
+
 }
 
 export default SearchForm;
